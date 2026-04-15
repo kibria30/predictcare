@@ -63,6 +63,11 @@ st.markdown("""
     }
     .metric-tile h2 { font-size: 2.2rem; font-weight: 700; margin: 0; }
     .metric-tile p  { font-size: 0.85rem; color: #666; margin: 4px 0 0; }
+            
+    .black-text-in-white-background,
+    .black-text-in-white-background * {
+        color: #555 !important;
+    }
 
     /* Risk badges */
     .badge-high   { background:#fde8e8; color:#c0392b; padding:4px 12px; border-radius:20px; font-weight:600; font-size:0.85rem; }
@@ -421,11 +426,12 @@ st.markdown("""
 # PAGE: HOME
 # ══════════════════════════════════════════════════════════════════════════════
 if page == "🏠  Home":
-    st.markdown("## Welcome to PredictCare")
-    st.markdown(
-        "PredictCare helps outpatient clinic managers predict which patients are at risk of "
-        "missing their appointments, enabling targeted interventions that reduce wasted slots "
-        "and improve patient throughput."
+    st.markdown("""<div class="black-text-in-white-background"><h1>Welcome to PredictCare</h1></div>""", unsafe_allow_html=True)
+    st.markdown("""<div class="black-text-in-white-background">
+        PredictCare helps outpatient clinic managers predict which patients are at risk of <br>
+        missing their appointments, enabling targeted interventions that reduce wasted slots <br>
+        and improve patient throughput.<br>
+        </div>""", unsafe_allow_html=True
     )
 
     col1, col2, col3, col4 = st.columns(4)
@@ -456,7 +462,7 @@ if page == "🏠  Home":
 
     st.markdown("<hr class='section-divider'>", unsafe_allow_html=True)
 
-    st.markdown("### How It Works")
+    st.markdown("""<div class="black-text-in-white-background"><h3>How It Works</h3></div>""", unsafe_allow_html=True)
     steps = [
         ("📂", "1. Upload Data", "Upload your historical appointment CSV or Excel file. The platform auto-cleans and validates your data."),
         ("🤖", "2. Train Model", "A Decision Tree classifier learns patterns from your historical data to identify no-show risk factors."),
@@ -474,7 +480,7 @@ if page == "🏠  Home":
             </div>""", unsafe_allow_html=True)
 
     st.markdown("<hr class='section-divider'>", unsafe_allow_html=True)
-    st.markdown("### Required Data Format")
+    st.markdown("""<div class="black-text-in-white-background"><h3>Required Data Format</h3></div>""", unsafe_allow_html=True)
     st.markdown("""
     <div class="info-box">
     Your historical appointment file must contain these columns (column names are case-insensitive):
@@ -488,7 +494,7 @@ if page == "🏠  Home":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("#### Download Sample Files")
+    st.markdown("""<div class="black-text-in-white-background"><h4>Download Sample Files</h4></div>""", unsafe_allow_html=True)
     cc1, cc2 = st.columns(2)
     with cc1:
         sample_train = generate_sample_data(400)
@@ -538,7 +544,7 @@ elif page == "📂  Step 1: Upload & Prepare Data":
             df_raw = pd.read_excel(uploaded)
         st.success(f"✅ File uploaded: **{uploaded.name}** — {len(df_raw):,} rows detected.")
 
-    st.markdown("#### Raw Data Preview")
+    st.markdown("""<div class="black-text-in-white-background"><h4>Raw Data Preview</h4></div>""", unsafe_allow_html=True)
     st.dataframe(df_raw.head(10), use_container_width=True)
 
     col_l, col_r = st.columns(2)
@@ -550,7 +556,7 @@ elif page == "📂  Step 1: Upload & Prepare Data":
         st.markdown(f"**Attended rate:** {df_raw['attended'].mean() * 100:.1f}%" if 'attended' in df_raw.columns else "")
 
     st.markdown("<hr class='section-divider'>", unsafe_allow_html=True)
-    st.markdown("#### Data Preparation")
+    st.markdown("""<div class="black-text-in-white-background"><h4>Data Preparation</h4></div>""", unsafe_allow_html=True)
 
     if st.button("▶ Run Data Preparation", type="primary", use_container_width=True):
         with st.spinner("Preparing data..."):
@@ -596,7 +602,7 @@ elif page == "🤖  Step 2: Train Model":
         st.warning("⚠️ Please complete Step 1 (Upload & Prepare Data) first.")
         st.stop()
 
-    st.markdown("#### Model Configuration")
+    st.markdown("""<div class="black-text-in-white-background"><h4>Model Configuration</h4></div>""", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         max_depth = st.slider("Maximum Tree Depth", 2, 8, 4,
@@ -649,7 +655,7 @@ elif page == "🤖  Step 2: Train Model":
 
         st.success("✅ Model trained successfully!")
 
-        st.markdown("#### Validation Performance")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Validation Performance</h4></div>""", unsafe_allow_html=True)
         m1, m2, m3, m4 = st.columns(4)
         with m1:
             st.markdown(f"""<div class="metric-tile"><h2 style="color:#2e6da4;">{acc*100:.1f}%</h2><p>Overall Accuracy</p></div>""", unsafe_allow_html=True)
@@ -700,7 +706,7 @@ elif page == "📊  Step 3: View Results":
 
     # ── TAB 1: Tree Diagram ──
     with tab1:
-        st.markdown("#### Decision Tree Structure")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Decision Tree Structure</h4></div>""", unsafe_allow_html=True)
         st.markdown("""
         <div class="info-box">
         Each node shows the variable and threshold used to split the data.
@@ -726,7 +732,7 @@ elif page == "📊  Step 3: View Results":
         st.pyplot(fig, use_container_width=True)
         plt.close()
 
-        st.markdown("#### Decision Rules (Text Format)")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Decision Rules (Text Format)</h4></div>""", unsafe_allow_html=True)
         with st.expander("Click to expand full rule set"):
             rules = export_text(model, feature_names=list(FACTOR_NAMES.values()))
             st.code(rules, language="")
@@ -739,7 +745,7 @@ elif page == "📊  Step 3: View Results":
 
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown("#### Confusion Matrix")
+            st.markdown("""<div class="black-text-in-white-background"><h4>Confusion Matrix</h4></div>""", unsafe_allow_html=True)
             fig2, ax2 = plt.subplots(figsize=(5, 4))
             disp = ConfusionMatrixDisplay(cm, display_labels=["No-Show", "Attended"])
             disp.plot(ax=ax2, colorbar=False, cmap="Blues")
@@ -749,7 +755,7 @@ elif page == "📊  Step 3: View Results":
             plt.close()
 
         with col2:
-            st.markdown("#### Performance Summary")
+            st.markdown("""<div class="black-text-in-white-background"><h4>Performance Summary</h4></div>""", unsafe_allow_html=True)
             tn, fp, fn, tp = cm.ravel() if cm.shape == (2,2) else (cm[0,0], cm[0,1], cm[1,0], cm[1,1])
             metrics = {
                 "Overall Accuracy":        f"{acc*100:.1f}%",
@@ -774,7 +780,7 @@ elif page == "📊  Step 3: View Results":
 
     # ── TAB 3: Risk Distribution ──
     with tab3:
-        st.markdown("#### Risk Category Distribution — Training Data")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Risk Category Distribution - Training Data</h4></div>""", unsafe_allow_html=True)
         _, proba_train = predict_risk(model, X_train)
         risk_train = []
         for p in proba_train:
@@ -815,7 +821,7 @@ elif page == "📊  Step 3: View Results":
                                margin=dict(t=50, b=20))
             st.plotly_chart(fig4, use_container_width=True)
 
-        st.markdown("#### Recommended Actions by Risk Level")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Recommended Actions by Risk Level</h4></div>""", unsafe_allow_html=True)
         action_data = {
             "Risk Level": ["🔴 High Risk", "🟠 Medium Risk", "🟢 Low Risk"],
             "No-Show Probability": ["> 50%", "25% – 50%", "< 25%"],
@@ -830,7 +836,7 @@ elif page == "📊  Step 3: View Results":
 
     # ── TAB 4: Feature Importance ──
     with tab4:
-        st.markdown("#### Feature Importance — What Drives No-Show Risk?")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Feature Importance - What Drives No-Show Risk?</h4></div>""", unsafe_allow_html=True)
         importance_df = pd.DataFrame({
             "Variable": list(FACTOR_NAMES.values()),
             "Importance Score": model.feature_importances_,
@@ -904,7 +910,7 @@ elif page == "🔮  Step 4: Score Upcoming":
         df_up_raw = pd.read_csv(uploaded_up) if uploaded_up.name.endswith(".csv") else pd.read_excel(uploaded_up)
         st.success(f"✅ Loaded {len(df_up_raw)} upcoming appointments.")
 
-    st.markdown("#### Uploaded Schedule Preview")
+    st.markdown("""<div class="black-text-in-white-background"><h4>Uploaded Schedule Preview</h4></div>""", unsafe_allow_html=True)
     st.dataframe(df_up_raw.head(10), use_container_width=True)
 
     if st.button("▶ Generate Risk Predictions", type="primary", use_container_width=True):
@@ -926,7 +932,7 @@ elif page == "🔮  Step 4: Score Upcoming":
         })
 
         st.markdown("<hr class='section-divider'>", unsafe_allow_html=True)
-        st.markdown("### Risk Prediction Results")
+        st.markdown("""<div class="black-text-in-white-background"><h3>Risk Prediction Results</h3></div>""", unsafe_allow_html=True)
 
         # Summary tiles
         counts = pd.Series(risk_labels).value_counts()
@@ -959,7 +965,7 @@ elif page == "🔮  Step 4: Score Upcoming":
         st.plotly_chart(fig_up, use_container_width=True)
 
         # Full results table
-        st.markdown("#### Full Results Table (sorted by risk)")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Full Results Table (sorted by risk)</h4></div>""", unsafe_allow_html=True)
         risk_order = {"High Risk": 0, "Medium Risk": 1, "Low Risk": 2}
         result_df_sorted = result_df.sort_values("Risk Category", key=lambda x: x.map(risk_order))
 
@@ -971,12 +977,12 @@ elif page == "🔮  Step 4: Score Upcoming":
             }
             return [colour_map.get(row["Risk Category"], "")] * len(row)
 
-        styled = result_df_sorted.style.apply(highlight_risk, axis=1)
+        styled = result_df_sorted.style.apply(highlight_risk, axis=1).set_properties(**{"color": "#1f2937"})
         st.dataframe(styled, use_container_width=True, hide_index=True)
 
         # Download
         st.markdown("<hr class='section-divider'>", unsafe_allow_html=True)
-        st.markdown("#### Download Results")
+        st.markdown("""<div class="black-text-in-white-background"><h4>Download Results</h4></div>""", unsafe_allow_html=True)
         st.download_button(
             "⬇ Download Full Risk Report (CSV)",
             result_df_sorted.to_csv(index=False),
