@@ -130,6 +130,49 @@ st.markdown("""
     .high-risk   td { background:#fde8e8 !important; }
     .medium-risk td { background:#fef3e2 !important; }
     .low-risk    td { background:#e8f8f0 !important; }
+
+    /* Button hover fixes */
+    .stButton > button:hover {
+        background-color: #163a5c !important;
+        border-color: #163a5c !important;
+        color: #ffffff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .stButton > button[kind="primary"]:hover {
+        background-color: #163a5c !important;
+        border-color: #163a5c !important;
+    }
+
+    /* Ensure text visibility on light backgrounds */
+    .metric-tile p { color: #444444 !important; }
+    .info-box { color: #1a5276 !important; }
+
+    /* Radio button text in sidebar */
+    [data-testid="stSidebar"] .stRadio label:hover {
+        color: #ffffff !important;
+        background: rgba(255,255,255,0.1);
+        border-radius: 4px;
+    }
+
+    /* Secondary buttons */
+    button[kind="secondary"] {
+        background-color: #2e6da4 !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+    button[kind="secondary"]:hover {
+        background-color: #1a3a5c !important;
+    }
+
+    /* Tab text visibility */
+    .stTabs [role="tab"] {
+        color: #2e6da4 !important;
+    }
+    .stTabs [role="tab"][aria-selected="true"] {
+        color: #1a3a5c !important;
+        font-weight: 600;
+    }
 </style>
 """, unsafe_allow_html=True)
 
