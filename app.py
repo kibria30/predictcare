@@ -184,6 +184,17 @@ st.markdown("""
         color: #1a3a5c !important;
         font-weight: 600;
     }
+
+    /* Main content checkbox text visibility (white bg) */
+    [data-testid="stMain"] div[data-testid="stCheckbox"] label,
+    [data-testid="stMain"] div[data-testid="stCheckbox"] label p,
+    [data-testid="stMain"] div[data-testid="stCheckbox"] span,
+    [data-testid="stMain"] div[data-testid="stCheckbox"] div,
+    [data-testid="stMain"] [data-baseweb="checkbox"] label,
+    [data-testid="stMain"] [data-baseweb="checkbox"] span {
+        color: #1f2937 !important;
+        opacity: 1 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -404,7 +415,6 @@ with st.sidebar:
     st.markdown(
         "PredictCare uses a **Decision Tree** algorithm to classify patient appointments "
         "into High, Medium, or Low no-show risk.\n\n"
-        "Built for: **BU7081 – Programming for Business Analytics**"
     )
     st.markdown("---")
     st.markdown("**Variables Used:**")
@@ -573,9 +583,9 @@ elif page == "📂  Step 1: Upload & Prepare Data":
             st.session_state["clean_log"] = log
             st.session_state["train_df"] = df_raw
 
-            st.markdown("**Preparation Log:**")
+            st.markdown("""<div class="black-text-in-white-background"><b>Preparation Log:</b></div>""", unsafe_allow_html=True)
             for msg in log:
-                st.markdown(f"- {msg}")
+                st.markdown(f"""<div class="black-text-in-white-background">- {msg}</div>""", unsafe_allow_html=True)
 
             st.success(
                 f"✅ Data ready! **{len(X)}** records prepared. "
