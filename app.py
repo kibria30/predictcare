@@ -125,6 +125,12 @@ st.markdown("""
     .top-banner h1 { margin:0; font-size:1.9rem; font-weight:700; }
     .top-banner p  { margin:4px 0 0; opacity:0.85; font-size:0.95rem; }
     .top-logo { font-size:3rem; }
+            
+    /* Keep header visible so sidebar toggle remains accessible */
+    header[data-testid="stHeader"] {
+        display: block;
+        background: transparent;
+    }
 
     /* Prediction table rows */
     .high-risk   td { background:#fde8e8 !important; }
